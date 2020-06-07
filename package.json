@@ -1,0 +1,37 @@
+{
+	"name": "choose-life-backend",
+	"version": "0.1.0",
+	"description": "Choose Life is a Solution focused wellness platform that helps clients track corporate wellness goals, statistics and returns on investment through the use of a platform that is tailored to the needs of employees health and fitness. The primary pillars of Choose Life are Health, Nutrition, Fitness and Lifestyle.",
+	"main": "index.js",
+	"scripts": {
+		"start": "nodemon -e js,graphql -x node src/index.js",
+		"debug": "nodemon -e js,graphql -x node --inspect src/index.js",
+		"playground": "graphql playground --dotenv variables.env",
+		"dev": "npm-run-all --parallel debug playground"
+	},
+	"keywords": [
+		"graphql",
+		"lifestyle",
+		"health",
+		"fitness",
+		"wellbeing"
+	],
+	"author": "Oluwasetemi <setemiojo@gmail.com>",
+	"license": "ISC",
+	"dependencies": {
+		"apollo-server-express": "^2.14.2",
+		"cors": "^2.8.5",
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"graphql": "^15.0.0",
+		"graphql-cli": "^4.0.0",
+		"graphql-playground-middleware-express": "^1.7.15",
+		"html-to-text": "^5.1.1",
+		"jsonwebtoken": "^8.5.1",
+		"juice": "^6.0.0",
+		"mongoose": "^5.9.18",
+		"nodemon": "^2.0.4",
+		"npm-run-all": "^4.1.5",
+		"pug": "^3.0.0"
+	}
+}

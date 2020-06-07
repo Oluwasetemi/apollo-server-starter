@@ -1,0 +1,16 @@
+extends email-layout
+
+block content
+    h2 You Requested A Password Reset
+    p Hello #{name.split(' ')[0]}!
+    br
+    p We heard you need your password reset. Click the link below and you'll be redirected to a secure location from where you can set a new password.
+    +button(resetLink, 'Reset Password ->')
+
+    p
+        a(href=`${resetLink}`, target='_blank')= resetLink
+
+    p Don't forget to store your password safely.
+    br
+    p If you didn't request this email, please ignore it.
+    p Sickfits

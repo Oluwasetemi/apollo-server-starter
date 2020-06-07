@@ -1,0 +1,13 @@
+extends email-layout
+
+block content
+    h2 Password Reset Successful
+    p Hello #{name.split(' ')[0]}!
+    br
+    p Your password has been changed successfully. You may login with your new password by clicking on the link below.
+
+    p Don't forget to store your password safely.
+    br
+    p If you didn't request this email, please ignore it.
+    p Team Genie
+    a(href=`${hostname}`) #{hostname}
