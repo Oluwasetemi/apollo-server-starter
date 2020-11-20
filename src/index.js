@@ -1,28 +1,23 @@
-const jwt = require('jsonwebtoken');
-require('dotenv').config({ path: 'variables.env' });
-const cors = require('cors');
-const createServer = require('./createServer');
-const db = require('./db');
+require("dotenv").config({ path: "variables.env" });
+const createServer = require("./createServer");
 
 (async () => {
-  const { httpServer, server, app } = await createServer();
+  try {
+    const { httpServer, server } = await createServer();
 
-  // setup middleware using the app
-  const corsOptions = {
-    credentials: true,
-    origin: process.env.FRONTEND_URL,
-    optionsSuccessStatus: 200
-  };
-
-  app.use(cors(corsOptions));
-
-  httpServer.listen(
-    {
-      port: process.env.PORT || 4000
-    },
-    () =>
-      console.log(
-        `GraphQL Server running at http://localhost:4000${server.graphqlPath} and socket is running at ws://localhost:4000/graphql`
-      )
-  );
+    httpServer.listen(
+      {
+        port: process.env.PORT || 4000,
+      },
+      () =>
+        /* eslint-disable */
+        console.log(
+          `GraphQL Server running at http://localhost:${process.env.PORT}${server.graphqlPath} and socket is running at ws://localhost:${process.env.PORT}${server.graphqlPath}`
+        )
+      /* eslint-enable */
+    );
+  } catch (error) {
+    console.error(error.stack);
+    console.log(error.message);
+  }
 })();

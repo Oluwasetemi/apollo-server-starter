@@ -1,0 +1,21 @@
+query query_helloWorld_mut292 {
+  helloWorld
+}
+
+mutation query_helloWorld_mut114 {
+  greetings {
+    name
+    message
+  }
+}
+
+mutation query_helloWorld_mut949 {
+  working
+}
+
+subscription query_query_helloWor528 {
+  newGreetings {
+    name
+    message
+  }
+}
