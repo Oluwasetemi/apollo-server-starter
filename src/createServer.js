@@ -16,14 +16,7 @@ const cors = require("cors");
 
 const resolvers = require("./resolvers");
 
-const typeDefs = readFileSync(
-  path.join(__dirname, "typeDefs.graphql"),
-  "UTF-8"
-);
-if (!typeDefs) {
-  console.log("Set up your typeDefs");
-  return;
-}
+const typeDefs = require('./typeDefs')
 
 const defaultQueries = readFileSync(
   path.join(__dirname, "..", "all_development_queries.graphql"),

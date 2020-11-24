@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ variables.env });
 const path = require('path');
 const pug = require('pug');
 const juice = require('juice');
@@ -59,8 +59,8 @@ exports.send = async options => {
         Email: process.env.SMTP_FROM_EMAIL,
         Name: process.env.SMTP_FROM_NAME
       },
-      To: [{ Email: options.to, Name: 'Sickfits' }],
-      Subject: options.subject || 'XXXXXXX-XXXX',
+      To: [{ Email: options.to, Name: 'APOLLO_SAMPLE_SERVER' }],
+      Subject: options.subject || 'MAIL_SUBJECT',
       TextPart: text,
       HTMLPart: html
     };
@@ -91,5 +91,4 @@ const makeANiceEmail = text => `
     </div>
 `;
 
-exports.transport = transport;
 exports.makeANiceEmail = makeANiceEmail;
