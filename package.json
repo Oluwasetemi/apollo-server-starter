@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon -e js,graphql -x node src/index.js",
-    "debug": "nodemon -e js,graphql -x node --inspect src/index.js",
-    "playground": "graphql playground --dotenv variables.env",
-    "dev": "npm-run-all --parallel debug playground",
+    "debug": "cross-env NODE_OPTIONS=\"-r esm -r dotenv/config\" nodemon -e js,graphql -x node --inspect src/index.js",
+    "dev": "cross-env NODE_OPTIONS=\"-r esm -r dotenv/config\" nodemon -e js,graphql -x node --inspect src/index.js",
+    "playground": "graphql playground --dotenv .env",
+    "dev:all": "npm-run-all --parallel debug playground",
     "seed": "node src/seed/seed.js",
     "blowitallaway": "node src/seed/seed.js --delete",
     "email": "echo \"you must have pug-cli installed globally to convert all the pug template to html!NB Always change the templates/email-template-name\" && pug -w src/mail/templates/confirmed_email_subscriber.pug -o src/mail/html",
@@ -22,6 +23,7 @@
   "dependencies": {
     "altair-express-middleware": "^2.5.2",
     "apollo-server-express": "^2.14.2",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -39,5 +41,9 @@
     "remark-html": "^13.0.1",
     "remark-preset-lint-recommended": "^5.0.0",
     "vfile-reporter": "^6.0.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "esm": "^3.2.25"
   }
 }

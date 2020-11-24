@@ -14,4 +14,4 @@ const mutation = {
   }
 };
 
-module.exports = mutation;
+export default mutation;

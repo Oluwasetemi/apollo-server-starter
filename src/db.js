@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
-const mongoose = require('mongoose');
-
+import mongoose from 'mongoose';
 mongoose.Promise = global.Promise;
 
 // const mongooseErrorHandler = require('mongoose-mongodb-errors');
@@ -11,7 +10,7 @@ mongoose.Promise = global.Promise;
 // check if the uri of the database was setup in the env variable
 if (!process.env.DATABASE_URL) {
   console.warn('Please setup your DATABASE variable');
-  throw Error('setup a database variable');
+  throw new Error('setup a database variable');
 }
 // check if the uri of the database was setup in the env variable
 if (process.env.NODE_ENV === 'test' && !process.env.DATABASE_TEST_URL) {
@@ -40,4 +39,4 @@ const connection = async (url) => {
   }
 };
 
-module.exports = connection;
+export default connection;

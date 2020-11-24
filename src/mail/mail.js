@@ -1,8 +1,7 @@
-require('dotenv').config({ variables.env });
-const path = require('path');
-const pug = require('pug');
-const juice = require('juice');
-const htmlToText = require('html-to-text');
+import htmlToText from 'html-to-text';
+import juice from 'juice';
+import path from 'path';
+import pug from 'pug';
 // const nodemailer = require('nodemailer');
 
 if (!process.env.MAILJET_API_KEY && !process.env.MAILJET_SECRET_KEY) {
@@ -49,7 +48,7 @@ const generateHTML = (filename, options = {}) => {
  * })
  * @returns {obj} result of sending mail and the message (mail content)
  */
-exports.send = async options => {
+export send = async options => {
   try {
     const html = generateHTML(options.filename, options);
     const text = htmlToText.fromString(html);
@@ -76,7 +75,7 @@ exports.send = async options => {
   }
 };
 
-const makeANiceEmail = text => `
+export const makeANiceEmail = text => `
     <div class="email" styles="
         border: 1px solid black;
         padding: 20px;
@@ -90,5 +89,3 @@ const makeANiceEmail = text => `
         <p>🤟🏼, Temi</p>
     </div>
 `;
-
-exports.makeANiceEmail = makeANiceEmail;

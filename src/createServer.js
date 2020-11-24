@@ -1,22 +1,19 @@
 /* eslint-disable */
-const { ApolloServer, PubSub } = require("apollo-server-express");
-const express = require("express");
-const expressPlayground = require("graphql-playground-middleware-express")
-  .default;
-const { readFileSync } = require("fs");
-const { createServer } = require("http");
-const path = require("path");
-const dbConnection = require("./db");
-const remark = require("remark");
-const recommended = require("remark-preset-lint-recommended");
-const html = require("remark-html");
-const report = require("vfile-reporter");
-const { altairExpress } = require("altair-express-middleware");
-const cors = require("cors");
-
-const resolvers = require("./resolvers");
-
-const typeDefs = require('./typeDefs')
+import { altairExpress } from "altair-express-middleware";
+import { ApolloServer, PubSub } from "apollo-server-express";
+import cors from "cors";
+import express from "express";
+import { readFileSync } from "fs";
+import expressPlayground from "graphql-playground-middleware-express";
+import { createServer } from "http";
+import path from "path";
+import remark from "remark";
+import html from "remark-html";
+import recommended from "remark-preset-lint-recommended";
+import report from "vfile-reporter";
+import dbConnection from "./db";
+import resolvers from "./resolvers";
+import typeDefs from './typeDefs';
 
 const defaultQueries = readFileSync(
   path.join(__dirname, "..", "all_development_queries.graphql"),
@@ -25,7 +22,6 @@ const defaultQueries = readFileSync(
 
 if (!defaultQueries) {
   console.log("Set up your default Queries");
-  return;
 }
 
 async function startServer() {
@@ -54,7 +50,7 @@ async function startServer() {
       context: () => ({ pubsub }),
     });
 
-    httpServer = createServer(app);
+    let httpServer = createServer(app);
     server.installSubscriptionHandlers(httpServer);
 
     // setup middleware using the app
@@ -110,4 +106,4 @@ async function startServer() {
   }
 }
 
-module.exports = startServer;
+export default startServer;

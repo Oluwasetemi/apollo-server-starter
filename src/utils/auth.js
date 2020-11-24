@@ -1,8 +1,8 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 if (!process.env.TOKEN_SECRET) {
-  throw Error('Please set a TOKEN_SECRET in the environment variable');
+  throw new Error('Please set a TOKEN_SECRET in the environment variable');
 }
 
 /**
@@ -14,7 +14,7 @@ if (!process.env.TOKEN_SECRET) {
  * @returns {string} token - for authenticating the user.
  */
 
-exports.sign = (id) =>
+export sign = (id) =>
   new Promise((resolve, reject) => {
     jwt.sign({ id }, process.env.TOKEN_SECRET, (err, token) => {
       if (err) return reject(err);
@@ -30,7 +30,7 @@ exports.sign = (id) =>
  * @returns {object} decoded - authenticated user details.
  */
 
-exports.verify = (token) =>
+export verify = (token) =>
   new Promise((resolve, reject) => {
     jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
       if (err) return reject(err);
@@ -45,7 +45,7 @@ exports.verify = (token) =>
  * @param {string} password - user password.
  * @returns {Promise(string)} hashed - a hashed password
  */
-exports.hash = (password) => {
+export hash = (password) => {
   const saltRounds = 10;
   return new Promise((resolve, reject) => {
     bcrypt.hash(password, saltRounds, (err, hashed) => {
@@ -62,5 +62,5 @@ exports.hash = (password) => {
  * @param {string} hashedPassword
  * @returns {Promise(boolean)} match - the boolean of the password compare
  */
-exports.match = (password, hashedPassword) =>
+export match = (password, hashedPassword) =>
   bcrypt.compare(password, hashedPassword);

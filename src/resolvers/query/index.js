@@ -5,4 +5,4 @@ const query = {
   }
 };
 
-module.exports = query;
+export default query;

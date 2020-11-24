@@ -1,14 +1,14 @@
-const { google } = require('googleapis');
-const axios = require('axios');
+import axios from "axios";
+import { google } from "googleapis";
 
 /** **************** */
 /** CONFIGURATION * */
 /** **************** */
 
 const defaultScope = [
-  'https://www.googleapis.com/auth/user.phonenumbers.read',
-  'https://www.googleapis.com/auth/userinfo.email',
-  'https://www.googleapis.com/auth/userinfo.profile',
+  "https://www.googleapis.com/auth/user.phonenumbers.read",
+  "https://www.googleapis.com/auth/userinfo.email",
+  "https://www.googleapis.com/auth/userinfo.profile",
 ];
 
 /** ********** */
@@ -16,7 +16,7 @@ const defaultScope = [
 /** ********** */
 
 if (!process.env.GOOGLE_CLIENT_ID && !process.env.GOOGLE_CLIENT_SECRET) {
-  throw Error('Enter the google secret in the env file');
+  throw Error("Enter the google secret in the env file");
 }
 /**
  * @summary create connection to google-api
@@ -38,8 +38,8 @@ function createConnection(url) {
  */
 function getConnectionUrl(auth) {
   return auth.generateAuthUrl({
-    access_type: 'offline',
-    prompt: 'consent',
+    access_type: "offline",
+    prompt: "consent",
     scope: defaultScope,
   });
 }
@@ -55,9 +55,9 @@ function getConnectionUrl(auth) {
  * @summary Create a Google URL and send to the client to log in the user
  * @returns {string} authentication url
  */
-function urlGoogle() {
-  let url = '';
-  url = encodeURI('https://chooselife.com/app');
+export function urlGoogle() {
+  let url = "";
+  url = encodeURI("https://chooselife.com/app");
   const auth = createConnection(url);
   url = getConnectionUrl(auth);
   return url;
@@ -68,16 +68,16 @@ function urlGoogle() {
  * @param {string} code uri encoded auth token
  * @returns {object} google user profile
  */
-const getGoogleAccountFromCode = async (code) => {
+export const getGoogleAccountFromCode = async (code) => {
   try {
-    const url = encodeURI('https://chooselife.com/app');
+    const url = encodeURI("https://chooselife.com/app");
     const auth = createConnection(url);
     const data = await auth.getToken(code);
     const { tokens } = data;
     const options = {
-      method: 'GET',
+      method: "GET",
       uri:
-        'https://people.googleapis.com/v1/people/me?personFields=emailAddresses,names,photos,phoneNumbers,addresses',
+        "https://people.googleapis.com/v1/people/me?personFields=emailAddresses,names,photos,phoneNumbers,addresses",
       headers: {
         Authorization: `Bearer ${tokens.access_token}`,
       },
@@ -92,18 +92,13 @@ const getGoogleAccountFromCode = async (code) => {
       email: userGoogleEmail,
       image: userAvatar,
       name: displayName,
-      source: 'GOOGLE',
+      source: "GOOGLE",
     };
   } catch (error) {
-    if (error.message === 'invalid_grant')
+    if (error.message === "invalid_grant")
       throw new Error(
-        'The generated authorization code can only be used once. Regenerate another authorization code'
+        "The generated authorization code can only be used once. Regenerate another authorization code"
       );
     throw new Error(error);
   }
-};
-
-module.exports = {
-  urlGoogle,
-  getGoogleAccountFromCode,
 };
